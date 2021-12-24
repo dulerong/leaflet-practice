@@ -1,19 +1,22 @@
-<template>
-  <div style="height: 80vh; width: 100%">
-    <div style="height: 125px; overflow: auto;">
-      <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
-      <button @click="print">Print</button>
-    </div>
-    <l-map
-      id="print"
-      :zoom="zoom"
-      :center="center"
-      @update:center="centerUpdate"
-      @update:zoom="zoomUpdate"
-    >
-      <l-tile-layer :url="url"/>
-    </l-map>
-  </div>
+<template lang="pug">
+v-card(
+  class="mx-auto"
+  style="height: 100%; width: 80%;"
+)
+  v-row(no-gutters align="center" id="title-print")
+    v-card-title Leaflet Map Practice
+    v-btn(@click="print('map-print')" class="ml-5") Print Map
+    v-btn(@click="print('title-print')" class="ml-5") Print Title
+  LMap(
+    id="map-print"
+    style="height: 90%"
+    :zoom="zoom"
+    :center="center"
+    @update:center="centerUpdate"
+    @update:zoom="zoomUpdate"
+    :options="{ attributionControl: false }"
+  )
+    LTileLayer(:url="url")
 </template>
 
 <script>
@@ -43,8 +46,8 @@ export default {
     centerUpdate(center) {
       this.currentCenter = center;
     },
-    print() {
-      const prtHtml = document.getElementById('print').innerHTML
+    print(elementId) {
+      const prtHtml = document.getElementById(elementId).innerHTML
 
       let stylesHtml = ''
       for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
@@ -73,3 +76,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.vue2leaflet-map {
+  z-index: 1;
+}
+</style>
