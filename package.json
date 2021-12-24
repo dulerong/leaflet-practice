@@ -9,7 +9,12 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "leaflet": "^1.7.1",
+    "leaflet.gridlayer.googlemutant": "^0.13.4",
+    "vue": "^2.6.11",
+    "vue2-leaflet": "^2.7.1",
+    "vue2-leaflet-googlemutant": "^2.0.0",
+    "vuetify": "^2.6.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
