@@ -17,17 +17,24 @@ v-card(
     :options="{ attributionControl: false }"
   )
     LTileLayer(:url="url")
+    LMarker(
+      v-for="(item, i) in itemList"
+      :key="i"
+      :lat-lng="[item.lat, item.lng]"
+      :icon="getIcon()"
+    )
 </template>
 
 <script>
-import { latLng } from "leaflet";
-import { LMap, LTileLayer } from "vue2-leaflet";
+import { latLng } from "leaflet"
+import { LMap, LTileLayer, LMarker } from "vue2-leaflet"
+import L from "leaflet"
 
 export default {
-  name: "Example",
   components: {
     LMap,
     LTileLayer,
+    LMarker,
   },
   data() {
     return {
@@ -37,6 +44,10 @@ export default {
       withPopup: latLng(47.41322, -1.219482),
       currentZoom: 11,
       currentCenter: latLng(47.41322, -1.219482),
+      itemList: [
+        { lat: 34.51341, lng: 135.23451 },
+        { lat: 34.67876, lng: 135.23222 },
+      ]
     };
   },
   methods: {
@@ -45,6 +56,13 @@ export default {
     },
     centerUpdate(center) {
       this.currentCenter = center;
+    },
+    getIcon() {
+      return L.divIcon({
+        className: 'my-div-icon',
+        iconSize: [40, 40],
+        html: 'Hello'
+      })
     },
     print(elementId) {
       const prtHtml = document.getElementById(elementId).innerHTML
@@ -81,4 +99,17 @@ export default {
 .vue2leaflet-map {
   z-index: 1;
 }
+
+.my-div-icon {
+  background-color: red;
+  border: 2px solid blue;
+}
+
+@media print {
+  body * {
+    -webkit-print-color-adjust: exact; 
+  }
+}
+
+
 </style>
