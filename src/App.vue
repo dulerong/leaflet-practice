@@ -1,5 +1,15 @@
-<template>
-  <Map msg="Welcome to Your Vue.js App"/>
+<template lang="pug">
+v-app
+  v-navigation-drawer(v-model="drawer" temporary app)
+    v-list-item
+      v-list-item-content
+        v-list-item-title(class="text-h6") Application
+        v-list-item-subtitle subtext
+  v-app-bar(elevation="4" app)
+    v-app-bar-nav-icon(@click.stop="drawer = !drawer")
+  v-main
+    Map
+  v-footer(app)
 </template>
 
 <script>
@@ -9,17 +19,9 @@ export default {
   name: 'App',
   components: {
     Map
-  }
+  },
+  data: () => ({
+    drawer: false,
+  })
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
